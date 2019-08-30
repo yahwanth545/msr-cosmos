@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="./register.js"></script>
+    <script src="./login.js"></script>
+</head>
+
+<body>
+    <div class="container">
+            <form onsubmit="event.preventDefault(); onFormRegisterSubmit()">
+                    <h2 class="align-center">Register</h2>
+        <div class="form-group">
+            <label for="exampleInputPassword1">First Name</label>
+            <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter First Name" required />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Middle Name</label>
+            <input type="text" class="form-control" name="mname" id="mname" placeholder="Enter Middle Name" />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Last Name</label>
+            <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter Last Name" required />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email"
+                required />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">PhoneNo</label>
+            <input type="text" class="form-control" name="phoneno" id="phoneno" placeholder="Enter PhoneNo" required />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password"
+                required />
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Confirm Password</label>
+            <input type="password" class="form-control" name="phoneno" id="conpassword" placeholder="Enter Confirm Password"
+                required />
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="col-lg-6">
+                <span class="pull-right">
+                    <button type="button" class="btn btn-info" onclick="Login()">Login</button>
+                </span>
+            </div>
+
+        </div>
+    </div>
+    </form>
+</body>
+
+</html>

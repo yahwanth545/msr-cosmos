@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!-- <script src="./dashboard.js"></script> -->
+
+</head>
+
+<body>
+    <div class="container">
+        <h2>Total users</h2>
+        <table id="myTable1" class="table table-bordered">
+            <tr>
+                <th>S.No</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>PhoneNo</th>
+                <th>Actions</th>
+            </tr>
+
+        </table>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" id="modal">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h2 class="align-center">Update User</h2>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">First Name</label>
+                            <input type="text" class="form-control" name="fname" id="fname" placeholder="Enter First Name"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Middle Name</label>
+                            <input type="text" class="form-control" name="mname" id="mname" placeholder="Enter Middle Name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Last Name</label>
+                            <input type="text" class="form-control" name="lname" id="lname" placeholder="Enter Last Name"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp"
+                                placeholder="Enter email" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">PhoneNo</label>
+                            <input type="text" class="form-control" name="phoneno" id="phoneno" placeholder="Enter PhoneNo"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Confirm Password</label>
+                            <input type="password" class="form-control" name="phoneno" id="conpassword" placeholder="Enter Confirm Password"
+                                required />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal" id="modalClose" onclick="updateUser()">Submit</button>
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    let updatedId;
+    let userData = localStorage.getItem("array");
+    let totalData = JSON.parse(userData);
+    for (let i = totalData.length - 1; i >= 0; i--) {
+        let table = document.getElementById("myTable1");
+        let data = totalData[i]
+        let row = table.insertRow(1);
+        let cell1 = row.insertCell(0);
+        let cell2 = row.insertCell(1);
+        let cell3 = row.insertCell(2);
+        let cell4 = row.insertCell(3);
+        let cell5 = row.insertCell(4);
+        let cell6 = row.insertCell(5);
+
+        cell1.innerText = i + 1;
+        cell2.innerText = totalData[i].fname;
+        cell3.innerText = totalData[i].lname;
+        cell4.innerText = totalData[i].email;
+        cell5.innerText = totalData[i].phoneno;
+        cell6.innerHTML = `<a onClick="Javacsript: UpdateData(this)" data-toggle="modal" data-target="#myModal">Edit</a>&nbsp;<a onClick="Javacsript:DeleteData(this)">Delete</a>`
+    }
+
+    function UpdateData(obj) {
+
+        var index = obj.parentNode.parentNode.rowIndex;
+        let oldData = totalData[index - 1]
+        updatedId = oldData.id
+        document.getElementById("fname").value = oldData.fname;
+        document.getElementById("lname").value = oldData.lname;
+        document.getElementById("mname").value = oldData.mname;
+        document.getElementById("email").value = oldData.email;
+        document.getElementById("password").value = oldData.password;
+        document.getElementById("conpassword").value = oldData.password;
+        document.getElementById("phoneno").value = oldData.phoneno;
+    }
+
+    function DeleteData(obj) {
+        let totalData = JSON.parse(userData);
+        var index = obj.parentNode.parentNode.rowIndex;
+        let deleteData = totalData[index - 1];
+        let deletedId = deleteData.id;
+        const items = totalData.filter(item => {
+            return (item.id) !== deletedId
+        });
+        // console.log("haiiiii", items)
+        localStorage.setItem("array", JSON.stringify(items));
+        window.location.reload();
+    }
+
+    function updateUser() {
+        let array = [];
+        let fname = document.getElementById("fname").value;
+        let lname = document.getElementById("lname").value;
+        let mname = document.getElementById("mname").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("conpassword").value;
+        let phoneno = document.getElementById("phoneno").value;
+        if (password === confirmPassword) {
+            let obj = {
+                fname: fname,
+                lname: lname,
+                mname: mname,
+                email: email,
+                lname: lname,
+                password: password,
+                phoneno: phoneno,
+                id: Math.random()
+            }
+            // console.log("haiiiii",updatedId)
+            let totalData = JSON.parse(userData);
+            const items = totalData.filter(item => {
+                return (item.id) !== updatedId
+            });
+            array.push(...items)
+            array.push(obj)
+            // console.log("items", array)
+            localStorage.setItem("array", JSON.stringify(array))
+            window.location.reload();
+        }
+        else {
+            alert("Password and Confirm Password did't matched")
+
+        }
+    }
+</script>
+
+</html>
